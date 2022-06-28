@@ -8,8 +8,11 @@ export function Repository() {
     description: string;
     language: string;
     forks: string;
+    createdAt: string;
   }
   const [data, setData] = useState([]);
+  const [languageRepo, setLanguageRepo] = useState([]);
+  const [showLanguages, setShowLanguages] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:4000/repos').then((res) => {
@@ -18,9 +21,28 @@ export function Repository() {
     });
   }, [data]);
 
-  // const sortedData = data?.sort((a:Repo, b:Repo) => a.created_at - b.created_at);
+  const filterLanguage = (language: string) => {
+    const filteredLanguages = data?.filter(
+      (repo: Repo) => repo.language === language
+    );
+
+    setLanguageRepo(filteredLanguages);
+  };
+  // const sortedData = data?.sort(
+  //   (a: Repo, b: Repo) => a.created_at - b.created_at
+  // );
 
   const displayRepos = data?.map((repo: Repo) => {
+    return (
+      <ul key={repo.id}>
+        <li>Repository: {repo.name}</li>
+        <li>Description: {repo.description}</li>
+        <li>Language: {repo.language}</li>
+        <li>Number of Forks: {repo.forks}</li>
+      </ul>
+    );
+  });
+  const displayLanguages = languageRepo.map((repo: Repo) => {
     return (
       <ul key={repo.id}>
         <li>Repository: {repo.name}</li>
@@ -35,7 +57,14 @@ export function Repository() {
     return (
       <ul key={repo.id}>
         <li>
-          <button>{repo.language}</button>
+          <button
+            onClick={() => {
+              filterLanguage(repo.language);
+              setShowLanguages(true);
+            }}
+          >
+            {repo.language}
+          </button>
         </li>
       </ul>
     );
@@ -44,7 +73,7 @@ export function Repository() {
   return (
     <div>
       <div>{languageButtons}</div>
-      <div>{displayRepos}</div>
+      <div>{showLanguages ? displayLanguages : displayRepos}</div>
     </div>
   );
 }
