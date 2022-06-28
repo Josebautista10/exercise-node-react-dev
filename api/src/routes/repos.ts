@@ -3,6 +3,9 @@ import { Router, Request, Response } from 'express';
 // const data = require('../../data/repos.json');
 import data from '../../data/repos.json';
 export const repos = Router();
+data.forEach(
+  (repo) => (repo.created_at = `${new Date(repo.created_at).getMilliseconds()}`)
+);
 const filteredRepos = data?.filter((repo) => repo.fork === false);
 repos.get('/', async (_: Request, res: Response) => {
   res.header('Cache-Control', 'no-store');

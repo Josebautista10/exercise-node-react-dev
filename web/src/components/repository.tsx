@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function Repository() {
   interface Repo {
@@ -10,20 +10,41 @@ export function Repository() {
     forks: string;
   }
   const [data, setData] = useState([]);
-  axios.get('http://localhost:4000/repos').then((res) => {
-    console.log(res.data);
-    setData(res.data);
-  });
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/repos').then((res) => {
+      console.log(res.data);
+      setData(res.data);
+    });
+  }, [data]);
+
+  // const sortedData = data?.sort((a:Repo, b:Repo) => a.created_at - b.created_at);
 
   const displayRepos = data?.map((repo: Repo) => {
     return (
       <ul key={repo.id}>
-        <li>{repo.name}</li>
-        <li>{repo.description}</li>
-        <li>{repo.language}</li>
-        <li>{repo.forks}</li>
+        <li>Repository: {repo.name}</li>
+        <li>Description: {repo.description}</li>
+        <li>Language: {repo.language}</li>
+        <li>Number of Forks: {repo.forks}</li>
       </ul>
     );
   });
-  return <div>{displayRepos}</div>;
+
+  const languageButtons = data?.map((repo: Repo) => {
+    return (
+      <ul key={repo.id}>
+        <li>
+          <button>{repo.language}</button>
+        </li>
+      </ul>
+    );
+  });
+
+  return (
+    <div>
+      <div>{languageButtons}</div>
+      <div>{displayRepos}</div>
+    </div>
+  );
 }
