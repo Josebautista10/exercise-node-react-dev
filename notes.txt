@@ -1,0 +1,13 @@
+-- Server --
+For the server side I imported the JSON into the repos file and then filtered through the ones that had forking false.
+After filtering the JSON I sent the filtered JSON to the server.
+For the headers I added "res.type('application/json')" so the headers would be of type 'application/json'.
+
+
+-- Client -- 
+In the client side I installed axios to do a get request to the server. Then I displayed the repos info using a '.map'.
+I took the same approach for the language buttons then added a function to filter through all the repos with that language.
+For more info on the repo I added a button that says "more info", and when you click it, it renders a div with more info about the repo.
+I added some logic for the ReadMe which was, if the repo had a property of "README.md" then render it but if not then fetch the ReadMe.
+For rendering the Markdown I installed the library 'react-markdown' so the ReadMe could be displayed. 
+At the top I put a show all button to return a list of all the repositories. 
