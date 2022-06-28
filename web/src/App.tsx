@@ -22,9 +22,14 @@ export function App() {
     message: string;
   }
   useEffect(() => {
-    axios.get('http://localhost:4000/repos').then((res) => {
-      setData(res.data);
-    });
+    axios
+      .get('http://localhost:4000/repos')
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch(function (error) {
+        console.log({ 'error.response.data': error.response.data });
+      });
   }, [data]);
 
   // attempt at trying to sort data by chronological order
@@ -69,6 +74,7 @@ export function App() {
         <button onClick={() => setShowLanguage(false)}>Show All</button>
       </div>
       <div>{languageButtons}</div>
+
       <div>{showLanguage ? filterLanguage() : repos}</div>
     </div>
   );
