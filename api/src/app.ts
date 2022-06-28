@@ -9,7 +9,6 @@ const corsOptions = {
   methods: 'GET',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true,
-  // origin: 'http://localhost:3000/',
 };
 
 export const app = express();
@@ -26,5 +25,6 @@ app.use('/', (err: Error, req: Request, res: Response, next: NextFunction) => {
   };
 
   res.status(status);
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.json(formattedError);
 });
