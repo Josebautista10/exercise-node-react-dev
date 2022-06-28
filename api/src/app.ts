@@ -8,10 +8,10 @@ import { AppError } from './models/AppError';
 const corsOptions = {
   methods: 'GET',
   allowedHeaders: 'Content-Type,Authorization',
+  credentials: true,
 };
 
 export const app = express();
-
 // Routes. Note these will fail about 25% due to "terrible" middleware.
 app.use('/repos', terrible(), cors(corsOptions), repos);
 
@@ -25,5 +25,6 @@ app.use('/', (err: Error, req: Request, res: Response, next: NextFunction) => {
   };
 
   res.status(status);
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.json(formattedError);
 });

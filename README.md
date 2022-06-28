@@ -34,7 +34,7 @@ to leave this middleware in place to improve your implementation in (B).
 
 Using the provided React application in `/web`:
 
- 1. Fetch repository data from the Express API created in (A).
+ 1. Fetch repository data from the Express API created in (A). 
  2. Display a list of repositories. Include the repository name, description,
     language, and forks count in the list.
  3. The list of repositories should be displayed in reverse chronological order
@@ -47,8 +47,7 @@ Using the provided React application in `/web`:
  6. If the repository has a `README.md` file, it will be located at
     https://raw.githubusercontent.com/${repo.full_name}/master/README.md. In
     this case, also render the Markdown content when clicking on the repository.
- 7. Include a way to return to the main list of repositories after you click on
-    a repository.
+ 7. Include a way to return to the main list of repositories after you click on a repository.
 
 Environment
 -----------
